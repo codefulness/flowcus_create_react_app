@@ -1,4 +1,4 @@
-import reduxSagaFirebase from './reduxSagaFirebase'
+import reduxSagaFirebase from '../reduxSagaFirebase'
 import firebase from 'firebase'
 import { call, put, take } from 'redux-saga/effects'
 import actions from './actions'

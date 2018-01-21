@@ -7,9 +7,9 @@ import {
   SignWithGoogleButton,
 } from './components'
 import AuthActions from './services/auth/actions'
+import DatabaseActions from './services/database/actions'
 import initialState from './initialState'
 import _ from 'lodash'
-// auth/account-exists-with-different-credential
 
 class App extends Component {
 
@@ -29,11 +29,17 @@ class App extends Component {
       signInWithGoogle,
       signOut,
       error,
+      getProjects
     } = this.props
     const AuthButtons = (user === initialState.auth.user) ? [
       <SignWithFacebookButton key="fb" onClick={signInWithFacebook} />,
       <SignWithGoogleButton key="gl" onClick={signInWithGoogle} />
-    ] : <a href="#" onClick={signOut}>Sign out</a>
+    ] : [
+      <a key="so" href="#" onClick={signOut}>Sign out</a>,
+      <br key="b" />,
+      <a key="p" href="#" onClick={getProjects}>get projects</a>
+    ]
+
     return (
       <div className="App">
         <header className="App-header">
@@ -52,10 +58,12 @@ const mapStateToProps = state => ({
 })
 
 const { signOut, signInWithFacebook, signInWithGoogle } = AuthActions
+const { projects } = DatabaseActions
 const mapDispatchToProps = dispatch => bindActionCreators({
   signInWithFacebook: signInWithFacebook.request,
   signInWithGoogle: signInWithGoogle.request,
   signOut: signOut.request,
+  getProjects: projects.request
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
