@@ -4,6 +4,6 @@ import * as workers from './workers'
 
 export default function* databaseService() {
   yield all([
-    takeLatest(actions.projects.request().type, workers.projects),
+    takeLatest(actions.getProjects.request().type, workers.projects),
   ])
 }

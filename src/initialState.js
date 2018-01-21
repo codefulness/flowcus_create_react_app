@@ -4,7 +4,9 @@ export default {
     error: null,
   },
   database: {
-
+    projects: {
+      items: []
+    }
   },
   view: {
 

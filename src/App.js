@@ -10,6 +10,12 @@ import AuthActions from './services/auth/actions'
 import DatabaseActions from './services/database/actions'
 import initialState from './initialState'
 import _ from 'lodash'
+import { map } from 'ramda'
+
+const ProjectList = props => {
+  const items = map(item => (<li key={item.key}>{item.name}</li>), props.projects)
+  return (<ul >{items}</ul>)
+}
 
 class App extends Component {
 
@@ -29,7 +35,8 @@ class App extends Component {
       signInWithGoogle,
       signOut,
       error,
-      getProjects
+      getProjects,
+      projects
     } = this.props
     const AuthButtons = (user === initialState.auth.user) ? [
       <SignWithFacebookButton key="fb" onClick={signInWithFacebook} />,
@@ -47,6 +54,7 @@ class App extends Component {
           {AuthButtons}
         </header>
         <p className="App-intro">To get started, edit <code>src/App.js</code> and save to reload.</p>
+        <ProjectList projects={projects.items} />
       </div>
     );
   }
@@ -54,16 +62,17 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-  error: state.auth.error
+  error: state.auth.error,
+  projects: state.database.projects,
 })
 
 const { signOut, signInWithFacebook, signInWithGoogle } = AuthActions
-const { projects } = DatabaseActions
+const { getProjects } = DatabaseActions
 const mapDispatchToProps = dispatch => bindActionCreators({
   signInWithFacebook: signInWithFacebook.request,
   signInWithGoogle: signInWithGoogle.request,
   signOut: signOut.request,
-  getProjects: projects.request
+  getProjects: getProjects.request
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

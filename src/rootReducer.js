@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 import initialState from './initialState'
 import authActions from './services/auth/actions'
+import databaseActions from './services/database/actions'
+import { map } from 'ramda'
 
 const isSignInSuccessAction = type => (
   new Array(
@@ -48,8 +50,20 @@ const handleAuthActions = (prevState = initialState.auth, action = {}) => {
   return prevState
 }
 
+const collectionToArray = collection => map(key => ({ key, ...collection[key] }), Object.keys(collection))
+
+const handleDatabaseActions = (prevState = initialState.database, action = {}) => {
+  if (action.type === databaseActions.getProjects.success().type) {
+    const items = collectionToArray(action.payload.projects)
+    return {
+      projects: { items }
+    }
+  }
+  return prevState
+}
+
 export default combineReducers({
   auth: handleAuthActions,
-  database: (prevState = {}) => prevState,
+  database: handleDatabaseActions,
   view: (prevState = {}) => prevState,
 })

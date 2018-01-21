@@ -14,5 +14,5 @@ export function* projects() {
     }
   });
 
-  yield put(actions.projects.success(projects));
+  yield put(actions.getProjects.success({ projects }));
 }
