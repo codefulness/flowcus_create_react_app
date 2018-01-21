@@ -14,8 +14,6 @@ const { dispatch } = store
 import {
   SignWithFacebookButton
 } from '../components'
-const createSingingWithFacebookRequest = () => ({
-  type: 'SING_IN_WITH_FACEBOOK_REQUEST'
-})
+
 storiesOf('User Sign In', module)
-  .add('Sign in with facebook', props => <SignWithFacebookButton onClick={action('createSingingWithFacebookRequest')} />);
+  .add('Sign in with facebook', props => <SignWithFacebookButton onClick={action('')} />);

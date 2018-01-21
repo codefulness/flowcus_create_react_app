@@ -12,7 +12,7 @@ const remoteActionFactory = (type) => ({
   }),
   error: (error) => ({
     type: `${type}_ERROR`,
-    payload: { error: { code: error.code, message: error.message }}
+    payload: (error) ? { error: { code: error.code, message: error.message }} : { }
   })
 })
 
@@ -21,4 +21,6 @@ export default {
   signInWithGoogle: remoteActionFactory('SIGN_IN_WITH_GOOGLE'),
   signInWithTwitter: remoteActionFactory('SIGN_IN_WITH_TWITTER'),
   signInWithGithub: remoteActionFactory('SIGN_IN_WITH_GITHUB'),
+  signIn: remoteActionFactory('SING_IN'),
+  signOut: remoteActionFactory('SIGN_OUT')
 }
