@@ -6,9 +6,9 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import initialState from './initialState';
 import configureStore from './configureStore'
+require('dotenv').config()
 
 const store = configureStore(initialState);
-store.dispatch({ type: 'HELLO_REDUX'})
 
 const ConnectedApp = () => (
   <Provider store={store}>
